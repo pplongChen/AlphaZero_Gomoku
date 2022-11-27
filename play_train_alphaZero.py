@@ -387,8 +387,7 @@ def Train_run(self):
         self.alpha_player.link_save_model( f'{TRAINED_MODELS_DIR}/best_policy_at_{i}_vs_mcts_{self.pure_mcts_playout_num}.model')
 
         # 3.2.2.2. 提高mcts的難度
-        if (self.best_win_ratio >= MODEL_UPDATE_WIN_RATIO and
-                self.pure_mcts_playout_num < MODEL_UPDATE_MAX_SCALE):
+        if (self.best_win_ratio >= MODEL_UPDATE_WIN_RATIO ):
           self.pure_mcts_playout_num += MODEL_UPDATE_SCALE
           self.best_win_ratio = 0.0
         pass
