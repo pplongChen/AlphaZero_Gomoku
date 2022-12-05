@@ -21,7 +21,7 @@ pass
 class AlphaZero_MCTS(object):
   """An implementation of Monte Carlo Tree Search."""
 
-  def __init__(self,  c_puct=5, n_playout=10000):
+  def __init__(self,  c_puct=5, n_simulate=10000):
     """
     c_puct: a number in (0, inf) that controls how quickly exploration
         converges to the maximum-value policy. A higher value means
@@ -29,7 +29,7 @@ class AlphaZero_MCTS(object):
     """
     self._root = TreeNode(None, 1.0)
     self._c_puct = c_puct
-    self._n_playout = n_playout
+    self._n_simulate = n_simulate
 
     # The main difference between principle and policy is 
     #  => that a principle is a rule that has to be followed 
@@ -39,7 +39,7 @@ class AlphaZero_MCTS(object):
 
   # refactor done
   def _simulate(self, state):
-    """Run a single playout from the root to the leaf, getting a value at
+    """Run a single simulate from the root to the leaf, getting a value at
     the leaf and propagating it back through its parents.
     State is modified in-place, so a copy must be provided.
     """
@@ -111,8 +111,8 @@ class AlphaZero_MCTS(object):
     #  proportional to 【the exponentiated visit count for each move】,
     #  πa~N(s, a)1/τ, where τ is a temperature parameter.
 
-    # 1. 先跑self._n_playout次模擬，已更新root的children的資料
-    for n in range(self._n_playout):
+    # 1. 先跑self._n_simulate次模擬，已更新root的children的資料
+    for n in range(self._n_simulate):
         # 複製盤面
         state_copy = copy.deepcopy(state)
         # 開始模擬
@@ -166,10 +166,10 @@ class AlphaZero_Player(object):
   """AI player based on MCTS"""
 
   def __init__(self, 
-               c_puct=5, n_playout=2000, model_path=None):
+               c_puct=5, n_simulate=2000, model_path=None):
     self.c_puct = 5
     self.n_simulate = N_ALPHAZERO_SIMULATE
-    self.brain = AlphaZero_MCTS( c_puct, n_playout)
+    self.brain = AlphaZero_MCTS( c_puct, n_simulate)
 
     # 捷徑
     self.link_reset   = self.brain.reset_decision_tree

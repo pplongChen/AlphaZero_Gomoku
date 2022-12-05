@@ -66,7 +66,7 @@ MODEL_UPDATE_MAX_SCALE = 10000
 
 # num of simulations used for the pure mcts, which is used as
 # the opponent to evaluate the trained policy
-DEFAULT_PURE_MCTS_PLAYOUT_NUM = 500
+DEFAULT_PURE_MCTS_SIMULATE_NUM = 500
 
 LOG_FILE_EVALUATION="z_log_evaluation.csv"
 LOG_FILE_TRAINING="z_log_training.csv"

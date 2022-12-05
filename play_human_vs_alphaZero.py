@@ -27,7 +27,7 @@ def run():
 
 
   alphaZero_player = ALGO_AlphaZero(    c_puct=PLAY_C_PUCT,
-                           n_playout=PLAY_ALPHAZERO_SIM_TIMES,
+                           n_simulate=PLAY_ALPHAZERO_SIM_TIMES,
                            model_path=model_file
                            ) 
 

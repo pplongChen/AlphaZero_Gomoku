@@ -39,7 +39,7 @@ class TrainProcedure():
 
     # num of simulations used for the pure mcts, which is used as
     # the opponent to evaluate the trained policy
-    self.pure_mcts_playout_num = DEFAULT_PURE_MCTS_PLAYOUT_NUM
+    self.pure_mcts_simulate_num = DEFAULT_PURE_MCTS_SIMULATE_NUM
 
     self.best_win_ratio = 0.0
 
@@ -57,15 +57,15 @@ class TrainProcedure():
     # ref: https://blog.csdn.net/weixin_40522801/article/details/106563354  
     if init_model:
       self.alpha_player = ALGO_AlphaZero( c_puct=C_PUCT,
-                                  n_playout=N_ALPHAZERO_SIMULATE)
+                                  n_simulate=N_ALPHAZERO_SIMULATE)
       self.alpha_player.link_load_model(init_model)
     else:
       self.alpha_player = ALGO_AlphaZero( c_puct=C_PUCT,
-                                  n_playout=N_ALPHAZERO_SIMULATE)
+                                  n_simulate=N_ALPHAZERO_SIMULATE)
     pass
 
     self.pure_mcts_player = ALGO_Pure_MCTS(c_puct=C_PUCT,
-                               n_simulate=self.pure_mcts_playout_num)
+                               n_simulate=self.pure_mcts_simulate_num)
 
   pass
 pass
@@ -308,7 +308,7 @@ def Train_policy_evaluate(self, n_games=10):
   
   win_ratio = 1.0*(win_cnt[1] + 0.5*win_cnt[-1]) / n_games
 
-  _log = f"# time, {show_time_now()}, num_playouts,{self.pure_mcts_playout_num}, win_ratio, {win_ratio}, win, {win_cnt[1]}, lose, {win_cnt[2]}, tie,{win_cnt[-1]}"
+  _log = f"# time, {show_time_now()}, num_simulates,{self.pure_mcts_simulate_num}, win_ratio, {win_ratio}, win, {win_cnt[1]}, lose, {win_cnt[2]}, tie,{win_cnt[-1]}"
 
   return win_ratio, _log
 pass
@@ -377,27 +377,27 @@ def Train_run(self):
       # Step 3.2.2. 如果勝率比以前高，則存檔模型，然後提高mcts的難度
       if win_ratio > self.best_win_ratio:
           
-        print(f"New best policy at {i+1} vs mcts {self.pure_mcts_playout_num}")
+        print(f"New best policy at {i+1} vs mcts {self.pure_mcts_simulate_num}")
 
         
         # update the best_policy
         self.best_win_ratio = win_ratio
 
         # 3.2.2.1. 存檔模型
-        self.alpha_player.link_save_model( f'{TRAINED_MODELS_DIR}/best_policy_at_{i}_vs_mcts_{self.pure_mcts_playout_num}.model')
+        self.alpha_player.link_save_model( f'{TRAINED_MODELS_DIR}/best_policy_at_{i}_vs_mcts_{self.pure_mcts_simulate_num}.model')
 
         # 3.2.2.2. 提高mcts的難度
         if (self.best_win_ratio >= MODEL_UPDATE_WIN_RATIO ):
-          self.pure_mcts_playout_num += MODEL_UPDATE_SCALE
+          self.pure_mcts_simulate_num += MODEL_UPDATE_SCALE
           self.best_win_ratio = 0.0
         pass
 
       pass
 
       # Step r3.2. 如果已經達到目標強度，停止訓練
-      if (self.pure_mcts_playout_num > MODEL_UPDATE_MAX_SCALE):
+      if (self.pure_mcts_simulate_num > MODEL_UPDATE_MAX_SCALE):
         print(f"############################################")
-        print(f"\n\n # finish training at game {i+1} for mcts scale {self.pure_mcts_playout_num}")
+        print(f"\n\n # finish training at game {i+1} for mcts scale {self.pure_mcts_simulate_num}")
         print(f"############################################")
         break
       pass

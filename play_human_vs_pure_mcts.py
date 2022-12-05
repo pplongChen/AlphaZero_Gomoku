@@ -26,8 +26,8 @@ def run():
   board = Board(width=width, height=height, n_in_row=n)
   game = Game(board)
 
-  # uncomment the following line to play with pure MCTS (it's much weaker even with a larger n_playout)
-  mcts_player = ALGO_Pure_MCTS(c_puct = PLAY_C_PUCT, n_playout=PLAY_MCTS_SIM_TIMES)
+  # uncomment the following line to play with pure MCTS (it's much weaker even with a larger n_simulate)
+  mcts_player = ALGO_Pure_MCTS(c_puct = PLAY_C_PUCT, n_simulate=PLAY_MCTS_SIM_TIMES)
 
   # human player, input your move in the format: 2,3
   human_player = Algo_Human()
