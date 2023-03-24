@@ -3,7 +3,7 @@
 PLAY_BOARD_WIDTH = 6
 PLAY_BOARD_HEIGHT = 6
 PLAY_N_IN_ROW = 4
-PLAY_MODEL_PATH = "trained_models/best_policy.model"
+PLAY_MODEL_PATH = "trained_models/6x6x4/best_policy_6x6x4_mcts_10000.model"
 
 PLAY_C_PUCT = 5
 PLAY_MCTS_SIM_TIMES = 15000
