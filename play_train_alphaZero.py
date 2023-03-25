@@ -389,6 +389,7 @@ def Train_run(self):
         # 3.2.2.2. 提高mcts的難度
         if (self.best_win_ratio >= MODEL_UPDATE_WIN_RATIO ):
           self.pure_mcts_simulate_num += MODEL_UPDATE_SCALE
+          self.pure_mcts_player.set_n_simulate(self.pure_mcts_simulate_num)
           self.best_win_ratio = 0.0
         pass
 

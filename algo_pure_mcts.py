@@ -151,6 +151,10 @@ class PureMCTSPlayer(object):
     self.player = p
   pass
 
+  def set_n_simulate(self, i_n_simulate):
+    self.brain._n_simulate = i_n_simulate
+  pass
+
   def get_action(self, board):
 
     sensible_moves = board.availables
