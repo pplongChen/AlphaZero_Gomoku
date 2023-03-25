@@ -15,9 +15,9 @@ PLAY_IS_SHOWN = 1
 #################################
 # for training 
 # params of the board and the game
-BOARD_WIDTH = 6
-BOARD_HEIGHT = 6
-N_IN_ROW = 4
+BOARD_WIDTH = PLAY_BOARD_WIDTH
+BOARD_HEIGHT = PLAY_BOARD_HEIGHT
+N_IN_ROW = PLAY_N_IN_ROW
 
 # training params
 LEARN_RATE = 2e-3
